@@ -12,120 +12,32 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
       const root = document.getElementById("root");
-
-      function MinutesToHours() {
-        const [amount, setAmount] = React.useState(0);
-        const [inverted, setInverted] = React.useState(false);
-        const onChange = (event) => {
-          setAmount(event.target.value);
-        };
-        const reset = () => setAmount(0);
-        const onInvert = () => {
-          reset();
-          setInverted((current) => !current);
-        };
+      function Btn({ text, big }) {
+        console.log(text, big);
         return (
-          <div>
-            <div>
-              <label htmlFor="minutes">Minutes</label>
-              <input
-                id="minutes"
-                type="number"
-                value={inverted ? amount * 60 : amount}
-                onChange={onChange}
-                placeholder="Minutes"
-                disabled={inverted}
-              />
-            </div>
-            <div>
-              <label htmlFor="hours">Hours</label>
-              <input
-                id="hours"
-                type="number"
-                value={inverted ? amount : Math.round(amount / 60)}
-                onChange={onChange}
-                placeholder="Hours"
-                disabled={!inverted}
-              />
-            </div>
-            <button onClick={reset}>Reset</button>
-            <button onClick={onInvert}>
-              {inverted ? "Turn back" : "Invert"}
-            </button>
-          </div>
-        );
-      }
-      function KmToMiles() {
-        const [number, setNumber] = React.useState(0);
-        const [inverted, setInverted] = React.useState(false);
-
-        const reset = () => setNumber(0);
-        function onChange(event) {
-          setNumber(event.target.value);
-        }
-        function onInverted() {
-          reset();
-          setInverted((current) => !current);
-        }
-        return (
-          <div>
-            <div>
-              <label htmlFor="km">Km</label>
-              <input
-                id="km"
-                type="number"
-                onChange={onChange}
-                value={
-                  inverted
-                    ? Math.round(number * 1.609344 * 1000000) / 1000000
-                    : number
-                }
-                disabled={inverted}
-              />
-            </div>
-            <div>
-              <label htmlFor="miles">miles</label>
-              <input
-                id="miles"
-                type="number"
-                onChange={onChange}
-                value={
-                  inverted
-                    ? number
-                    : Math.round((number / 1.609344) * 1000000) / 1000000
-                }
-                disabled={!inverted}
-              />
-            </div>
-            <button onClick={reset}>Reset</button>
-            <button onClick={onInverted}>
-              {inverted ? "Turn back" : "Invert"}
-            </button>
-          </div>
+          <button
+            style={{
+              backgroundColor: "tomato",
+              color: "white",
+              padding: "10px 20px",
+              border: 0,
+              borderRadius: 10,
+              fontSize: big ? 18 : 16,
+            }}
+          >
+            {text}
+          </button>
         );
       }
       function App() {
-        const [index, setIndex] = React.useState("1");
-        const onSelect = (event) => {
-          setIndex(event.target.value);
-        };
         return (
           <div>
-            <h1 className="title">Super Converter</h1>
-            <select value={index} onChange={onSelect}>
-              <option value="xx">Select your units</option>
-              <option value="0">Minutes & Hours</option>
-              <option value="1">Km & Miles</option>
-            </select>
-            <hr />
-            {index === "xx" ? "Please select your unit" : null}
-            {index === "0" ? <MinutesToHours /> : null}
-            {index === "1" ? <KmToMiles /> : null}
+            <Btn text="Save Changes" big={true} />
+            <Btn text="Continue" big={false} />
           </div>
         );
       }
       ReactDOM.render(<App />, root);
-      // const container = React.createElement("div", null, [Title, Button]);
     </script>
   </body>
 </html>
